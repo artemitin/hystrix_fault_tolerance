@@ -1,0 +1,32 @@
+#sample docker-compose.yml
+version: '3'
+services:
+  rabbit:
+    image: rabbitmq:3.6.6-management
+    container_name: rabbit
+    hostname: rabbit
+    ports:
+      - "5671:5671"
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    volumes:
+      - /data/rabbitmq:/var/lib/rabbitmq
+    restart: always
+#    networks:
+#      - backend
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    hostname: zipkin
+    ports:
+      - "9411:9411"
+    restart: always
+#    networks:
+#      - backend
+
+#networks:
+#  backend:
